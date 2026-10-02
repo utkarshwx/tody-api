@@ -10,6 +10,7 @@ export async function createTask(
         const {
             title,
             description,
+            resourceUrl,
             goalId,
             priority,
             period,
@@ -27,6 +28,7 @@ export async function createTask(
             userId: req.userId,
             title,
             description,
+            resourceUrl,
             goalId,
             priority,
             period,
@@ -122,6 +124,7 @@ export async function updateTask(
         const {
             title,
             description,
+            resourceUrl,
             goalId,
             priority,
             period,
@@ -132,6 +135,7 @@ export async function updateTask(
         const updateData: Record<string, unknown> = {
             title,
             description,
+            resourceUrl,
             goalId,
             priority,
             period,

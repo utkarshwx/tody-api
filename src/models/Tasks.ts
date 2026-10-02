@@ -22,6 +22,7 @@ export interface ITask extends Document {
 
     title: string;
     description?: string;
+    resourceUrl?: string;
 
     status: TaskStatus;
     priority: TaskPriority;
@@ -61,6 +62,11 @@ const taskSchema = new Schema<ITask>(
             type: String,
             trim: true,
             maxlength: 2000,
+        },
+
+        resourceUrl: {
+            type: String,
+            trim: true
         },
 
         status: {
