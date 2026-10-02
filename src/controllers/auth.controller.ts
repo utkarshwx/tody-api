@@ -27,9 +27,12 @@ export async function register(req: Request, res: Response) {
 
         const user = await registerUser(email, password, name);
 
+        const result = await loginUser(email, password);
+
         return res.status(201).json({
             success: true,
-            user,
+            token: result.token,
+            user: user,
         });
     } catch (error) {
         if (error instanceof Error && error.message === "USER_ALREADY_EXISTS") {
