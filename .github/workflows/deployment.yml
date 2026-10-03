@@ -33,11 +33,7 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd /home/zenorz-deploy/tody-api
-
             git pull origin main
-
             npm ci --omit=dev
-
             npm run build
-
             pm2 startOrReload ecosystem.config.js
