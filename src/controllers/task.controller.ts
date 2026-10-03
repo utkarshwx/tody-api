@@ -56,6 +56,19 @@ export async function getTasks(
     try {
         const { period, status, priority, goalId } = req.query;
 
+        const page = Math.max(
+            Number.parseInt(req.query.page as string) || 1,
+            1
+        );
+
+        const limit = Math.min(
+            Math.max(
+                Number.parseInt(req.query.limit as string) || 20,
+                1
+            ),
+            50
+        );
+
         const filter: Record<string, unknown> = {
             userId: req.userId,
         };
@@ -65,15 +78,30 @@ export async function getTasks(
         if (priority) filter.priority = priority;
         if (goalId) filter.goalId = goalId;
 
-        const tasks = await Task.find(filter)
-            .populate("goalId", "title period")
-            .sort({
-                createdAt: -1,
-            });
+        const skip = (page - 1) * limit;
+
+        const [tasks, total] = await Promise.all([
+            Task.find(filter)
+                .populate("goalId", "title period")
+                .skip(skip)
+                .limit(limit),
+
+            Task.countDocuments(filter),
+        ]);
+
+        const totalPages = Math.ceil(total / limit);
 
         return res.status(200).json({
             success: true,
             tasks,
+            pagination: {
+                page,
+                limit,
+                total,
+                totalPages,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1,
+            },
         });
     } catch (error) {
         console.error(error);
