@@ -29,10 +29,10 @@ jobs:
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.DROPLET_IP }}
-          username: tody-deploy
+          username: zenorz-deploy
           key: ${{ secrets.TODY_DEPLOY_KEY }}
           script: |
-            cd /home/tody-deploy/tody-api
+            cd /home/zenorz-deploy/tody-api
 
             git pull origin main
 
