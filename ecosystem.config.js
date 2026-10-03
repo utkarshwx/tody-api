@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "tody-api",
-      script: "./dist/index.js",
+      script: "node src/server.ts",
       instances: 1,
       exec_mode: "fork",
       autorestart: true,
