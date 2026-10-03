@@ -16,7 +16,7 @@ app.get("/api/v1/health", (_req, res) => {
     res.status(200).json({
         success: true,
         service: "tody-api",
-        status: "healthy",
+        status: "healthy and running",
         timestamp: new Date().toISOString()
     });
 });
